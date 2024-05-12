@@ -1,6 +1,8 @@
 asect 0x00
 push r3
 
+# Updating each byte of the leaderboard.
+# Getting the values from the leaderboard.
 main:
 	pop r3
 	ldi r0, bitRct_0
@@ -37,6 +39,10 @@ main:
 	
 	jsr cmpTop1
 	
+# Comparing the recent score with top-1 value.
+# If both high-order bytes are equal,
+# then the low-order bytes comparison starts.
+# If the scores are equal by both bytes, rewriting doesn't happen.
 cmpTop1:
 	pop r3
 	ldi r0, bitTop1_0
@@ -86,6 +92,11 @@ cmpTop1:
 	fi
 	#if1--------------------------------------------
 	
+# Comparing the recent score with top-2 value.
+# If both high-order bytes are equal,
+# then the low-order bytes comparison starts.
+# If the scores are equal by both bytes, rewriting doesn't happen.
+	
 cmpTop2:
 	pop r3
 	ldi r0, bitTop2_0
@@ -134,6 +145,10 @@ cmpTop2:
 	fi
 	#if1--------------------------------------------
 	
+# Comparing the recent score with top-3 value.
+# If both high-order bytes are equal,
+# then the low-order bytes comparison starts.
+# If the scores are equal by both bytes, rewriting doesn't happen.
 cmpTop3:
 	pop r3
 	ldi r0, bitTop3_0
@@ -180,6 +195,8 @@ cmpTop3:
 	fi
 	#if1--------------------------------------------
 	
+# Rewriting the top-1 value with recent score.
+# All the other scores are being shifted down.
 replaceTop1:
 	pop r3
 	
@@ -215,6 +232,8 @@ replaceTop1:
 	
 	jsr main
 	
+# Rewriting the top-2 value with recent score.
+# All the other scores lower are being shifted down.
 replaceTop2:
 	pop r3
 	
@@ -240,6 +259,8 @@ replaceTop2:
 	
 	jsr main	
 
+# Rewriting the top-3 value with recent score.
+# The previous top-3 score gets deleted.
 replaceTop3:
 	pop r3
 	
